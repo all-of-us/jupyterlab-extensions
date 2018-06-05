@@ -1,0 +1,11 @@
+version: "3"
+services:
+  jupyterlab-extensions:
+    build:
+      context: ./src/dev/server
+    user: ${UID}
+    working_dir: /w
+    volumes:
+      - .:/w:cached
+      - ~/.config:/.config:cached
+    command: yarn start --host=0.0.0.0 ${ENV_FLAG}
