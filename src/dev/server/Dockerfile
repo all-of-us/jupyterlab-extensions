@@ -1,25 +1,24 @@
-FROM jupyter/base-notebook
+FROM node:alpine
 
-USER root
+# We set the UID to the host's UID to ensure written files get proper permissions. The default UID
+# for node is 1000, which conflicts with some of our host machines.
+RUN apk --no-cache add shadow
+RUN groupmod -g 666 node \
+  && usermod -u 666 -g 666 node
 
-RUN apt-get update && \
-  apt-get upgrade -y && \
-  apt-get install -q -y gnupg curl
+RUN apk add --no-cache python3 && \
+    python3 -m ensurepip && \
+    rm -r /usr/lib/python*/ensurepip && \
+    pip3 install --upgrade pip setuptools && \
+    if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip ; fi && \
+    if [[ ! -e /usr/bin/python ]]; then ln -sf /usr/bin/python3 /usr/bin/python; fi && \
+    rm -r /root/.cache
 
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-RUN curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
-RUN apt-get update && \
-  apt-get upgrade -y && \
-  apt-get install -q -y \
-      openjdk-8-jdk \
-      git \
-      ruby \
-      ruby-json \
-      nodejs \
-      yarn
+# Java for Swagger client generation
+RUN apk --no-cache add openjdk8-jre git python3-dev gcc linux-headers libc-dev alpine-sdk
 
-RUN conda install -c conda-forge jupyterlab
+RUN pip install jupyter
+RUN pip install jupyterlab
 
 # We touch yarn's config file here so that we can explicitly make sure
 # yarn has permission to read/write to it, even though its empty.
@@ -28,4 +27,8 @@ RUN mkdir -p /.cache/yarn /.yarn \
     && touch /.yarnrc \
     && chmod a+rwx /.cache/yarn /.yarn /.yarnrc
 
-USER $NB_UID
+RUN apk --no-cache add ruby ruby-json ruby-io-console
+
+ADD with-uid.sh /usr/local/bin
+
+ENTRYPOINT ["with-uid.sh"]
