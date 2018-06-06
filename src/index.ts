@@ -12,7 +12,8 @@ const extension: JupyterLabPlugin<void> = {
   id: 'jupyterlab_allofus',
   autoStart: true,
   activate: (app: JupyterLab) => {
-    console.log('JupyterLab extension jupyterlab_allofus is activated!');
+    /* TODO: Replace this with real stuff */
+    console.log('Hello World');
   }
 };
 

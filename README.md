@@ -27,10 +27,12 @@ To clean the build output, run:
 ./project.rb clean
 ```
 
-To install the code in Jupyterlab, run:
+To install the built code in Jupyterlab, run:
 ```
 ./project.rb install
 ```
+
+(TODO: combine build and install? Have a dev-up command that does everything?)
 
 ## Running JupyterLab server
 
