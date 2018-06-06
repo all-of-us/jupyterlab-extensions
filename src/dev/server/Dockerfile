@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM node:9.11.1-alpine
 
 # We set the UID to the host's UID to ensure written files get proper permissions. The default UID
 # for node is 1000, which conflicts with some of our host machines.
@@ -31,4 +31,9 @@ RUN apk --no-cache add ruby ruby-json ruby-io-console
 
 ADD with-uid.sh /usr/local/bin
 
+EXPOSE 8007
 ENTRYPOINT ["with-uid.sh"]
+ENV JUPYTERLAB_DIR /w/jupyterlab
+ENV JUPYTER_CONFIG_DIR /w/jupyterlab
+ENV JUPYTER_PATH /w/jupyterlab
+ENV JUPYTER_RUNTIME_DIR /w/jupyterlab

@@ -9,3 +9,5 @@ services:
       - .:/w:cached
       - ~/.config:/.config:cached
     command: yarn start --host=0.0.0.0 ${ENV_FLAG}
+    ports:
+      - 8007:8007

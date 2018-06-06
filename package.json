@@ -12,6 +12,7 @@
   "bugs": {
     "url": "https://github.com/all-of-us/jupyterlab-extensions/issues"
   },
+  "license" : "BSD-3-Clause",
   "version": "0.0.1",
   "scripts": {
     "codegen": "yarn run codegen-clean && yarn run codegen-swagger && yarn run post-codegen",

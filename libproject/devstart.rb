@@ -70,28 +70,42 @@ end
 
 def build(cmd_name, args)
   ensure_docker cmd_name, args
+  # Not using this yet, but we will need to.
   options = BuildOptions.new.parse(cmd_name, args)
 
   common = Common.new
   common.run_inline %W{yarn install}
-
-  # Just use --aot for "test", which catches many compilation issues. Go full
-  # --prod (includes --aot) for other environments. Don't use full --prod in the
-  # test environment, as it takes twice as long to compile (1m vs 2m on 4/5/18)
-  # and also uglifies the source.
-  # See https://github.com/angular/angular-cli/wiki/build#--dev-vs---prod-builds.
-  optimize = "--aot"
-  if Set['staging', 'stable'].include?(options.env)
-    optimize = "--prod"
-  end
-  common.run_inline %W{yarn run build
-    #{optimize} --environment=#{options.env} --no-watch --no-progress}
+  common.run_inline %W{yarn run build}
 end
 
 Common.register_command({
   :invocation => "build",
   :description => "Builds the UI for the given environment.",
   :fn => lambda { |*args| build("build", args) }
+})
+
+def install(cmd_name, args)
+  ensure_docker cmd_name, args
+  common = Common.new
+  common.run_inline %W{jupyter labextension link .}
+end
+
+Common.register_command({
+  :invocation => "install",
+  :description => "Installs the extension in JupyterLab (running in Docker.)",
+  :fn => lambda { |*args| install("install", args) }
+})
+
+def run(cmd_name, args)
+  ensure_docker cmd_name, args
+  common = Common.new
+  common.run_inline %W{jupyter lab --port=8007 --allow-root --ip=0.0.0.0 --no-browser --notebook-dir=/w/jupyterlab}
+end
+
+Common.register_command({
+  :invocation => "run",
+  :description => "Runs JupyterLab inside Docker.",
+  :fn => lambda { |*args| run("run", args) }
 })
 
 def run_linter()
