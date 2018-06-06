@@ -1,32 +1,48 @@
 # jupyterlab_allofus
 
-Extension for All of Us Jupyter notebooks.
+JupyterLab extension for All of Us Jupyter notebooks.
 
+Ruby targets in libproject/devstart.rb provide targets for building and running the code, using
+Docker.
 
-## Prerequisites
+## Building code
 
-* JupyterLab
+To generate client libraries for talking to the workbench API based on a tagged client_api.yaml
+file referenced in package.json, run:
 
-## Installation
-
-```bash
-jupyter labextension install jupyterlab_allofus
+```
+./project.rb swagger-regen
 ```
 
-## Development
+To build the (generated and non-generated) Typescript code, and put the output Javascript in lib, run:
 
-For a development install (requires npm version 4 or later), do the following in the repository directory:
-
-```bash
-npm install
-npm run build
-jupyter labextension link .
+```
+./project.rb build
 ```
 
-To rebuild the package and the JupyterLab app:
 
-```bash
-npm run build
-jupyter lab build
+To clean the build output, run:
+
+```
+./project.rb clean
 ```
 
+To install the code in Jupyterlab, run:
+```
+./project.rb install
+```
+
+## Running JupyterLab server
+
+To run JupyterLab, run:
+
+```
+./project.rb run
+```
+
+When JupyterLab has started up inside Docker, you will be able to connect to it on localhost:8007.
+Hit Ctrl-C to kill it.
+
+## Publishing JupyterLab extension
+
+TODO: figure this out.

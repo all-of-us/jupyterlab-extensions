@@ -84,6 +84,20 @@ Common.register_command({
   :fn => lambda { |*args| build("build", args) }
 })
 
+def clean(cmd_name, args)
+  ensure_docker cmd_name, args
+
+  common = Common.new
+  common.run_inline %W{yarn clean}
+end
+
+Common.register_command({
+  :invocation => "clean",
+  :description => "Cleans the output of the build in lib.",
+  :fn => lambda { |*args| clean("clean", args) }
+})
+
+
 def install(cmd_name, args)
   ensure_docker cmd_name, args
   common = Common.new
@@ -97,9 +111,8 @@ Common.register_command({
 })
 
 def run(cmd_name, args)
-  ensure_docker cmd_name, args
   common = Common.new
-  common.run_inline %W{jupyter lab --port=8007 --allow-root --ip=0.0.0.0 --no-browser --notebook-dir=/w/jupyterlab}
+  common.run_inline %W{docker-compose up jupyterlab-extensions}
 end
 
 Common.register_command({

@@ -8,6 +8,6 @@ services:
     volumes:
       - .:/w:cached
       - ~/.config:/.config:cached
-    command: yarn start --host=0.0.0.0 ${ENV_FLAG}
+    command: jupyter lab --port=8007 --allow-root --ip=0.0.0.0 --no-browser --notebook-dir=/w/jupyterlab --NotebookApp.token=''
     ports:
       - 8007:8007
