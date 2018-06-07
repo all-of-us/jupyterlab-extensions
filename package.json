@@ -35,6 +35,7 @@
   },
   "dependencies": {
     "@jupyterlab/application": "^0.16.0",
+    "@jupyterlab/notebook": "^0.16.0",
     "npm": "^6.1.0"
   },
   "devDependencies": {
