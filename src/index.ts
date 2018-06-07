@@ -1,5 +1,6 @@
 import {
-  JupyterLab, JupyterLabPlugin
+  JupyterLab,
+  JupyterLabPlugin
 } from '@jupyterlab/application';
 
 import '../style/index.css';

@@ -5,7 +5,25 @@ JupyterLab extension for All of Us Jupyter notebooks.
 Ruby targets in libproject/devstart.rb provide targets for building and running the code, using
 Docker.
 
-## Building code
+## Running and installing locally
+
+Use the dev-up command to clean, regen, build, and install the extension and run JupyterLab in
+Docker:
+
+```
+./project.rb dev-up
+```
+
+When JupyterLab has started up inside Docker, you will be able to connect to it on localhost:8007.
+Hit Ctrl-C to kill it.
+
+Once it's running, you can use the install command to rebuild and install the extension:
+
+```
+./project.rb install
+```
+
+## Other commands
 
 To generate client libraries for talking to the workbench API based on a tagged client_api.yaml
 file referenced in package.json, run:
@@ -27,23 +45,11 @@ To clean the build output, run:
 ./project.rb clean
 ```
 
-To install the built code in Jupyterlab, run:
-```
-./project.rb install
-```
-
-(TODO: combine build and install? Have a dev-up command that does everything?)
-
-## Running JupyterLab server
-
-To run JupyterLab, run:
+To run JupyterLab without building anything, run:
 
 ```
 ./project.rb run
 ```
-
-When JupyterLab has started up inside Docker, you will be able to connect to it on localhost:8007.
-Hit Ctrl-C to kill it.
 
 ## Publishing JupyterLab extension
 

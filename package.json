@@ -20,7 +20,7 @@
     "codegen-swagger": "java -jar utils/swagger-codegen-cli.jar generate --lang typescript-angular --input-spec https://raw.githubusercontent.com/all-of-us/workbench/$npm_package_config_api_tag/api/src/main/resources/client_api.yaml --output src/generated --additional-properties ngVersion=2",
     "post-codegen": "sed -i.bak -e 's/OpaqueToken/InjectionToken/' src/generated/variables.ts",
     "build": "tsc",
-    "clean": "rimraf lib",
+    "clean": "rm -rf lib",
     "watch": "tsc -w"
   },
   "files": [

@@ -19,17 +19,6 @@ def create_parser(command_name)
   end
 end
 
-def install_dependencies()
-  common = Common.new
-  common.run_inline %W{docker-compose run --rm jupyterlab-extensions yarn install}
-end
-
-Common.register_command({
-  :invocation => "install-dependencies",
-  :description => "Installs dependencies via yarn.",
-  :fn => Proc.new { |*args| install_dependencies(*args) }
-})
-
 def swagger_regen(cmd_name)
   ensure_docker cmd_name, []
 
@@ -43,35 +32,8 @@ Common.register_command({
   :fn => Proc.new { |*args| swagger_regen("swagger-regen") }
 })
 
-class BuildOptions
-  # Keep in sync with .angular-cli.json.
-  ENV_CHOICES = %W{local-test local test staging stable}
-  attr_accessor :env
-
-  def initialize
-    self.env = "dev"
-  end
-
-  def parse cmd_name, args
-    parser = OptionParser.new do |parser|
-      parser.banner = "Usage: ./project.rb #{cmd_name} [options]"
-      parser.on(
-        "--environment ENV", ENV_CHOICES,
-        "Environment (default: local-test): [#{ENV_CHOICES.join(" ")}]") do |v|
-        # The default environment file (called "dev" in Angular language)
-        # compiles a local server to run against the deployed remote test API.
-        self.env = v == "local-test" ? "dev" : v
-      end
-    end
-    parser.parse args
-    self
-  end
-end
-
 def build(cmd_name, args)
   ensure_docker cmd_name, args
-  # Not using this yet, but we will need to.
-  options = BuildOptions.new.parse(cmd_name, args)
 
   common = Common.new
   common.run_inline %W{yarn install}
@@ -84,8 +46,8 @@ Common.register_command({
   :fn => lambda { |*args| build("build", args) }
 })
 
-def clean(cmd_name, args)
-  ensure_docker cmd_name, args
+def clean(cmd_name)
+  ensure_docker cmd_name, []
 
   common = Common.new
   common.run_inline %W{yarn clean}
@@ -94,32 +56,50 @@ end
 Common.register_command({
   :invocation => "clean",
   :description => "Cleans the output of the build in lib.",
-  :fn => lambda { |*args| clean("clean", args) }
+  :fn => lambda { |*args| clean("clean") }
 })
 
 
 def install(cmd_name, args)
   ensure_docker cmd_name, args
+  clean("clean")
+  swagger_regen("swagger-regen")
+  build("build", args)
   common = Common.new
   common.run_inline %W{jupyter labextension link .}
 end
 
 Common.register_command({
   :invocation => "install",
-  :description => "Installs the extension in JupyterLab (running in Docker.)",
+  :description => "Cleans, regens, builds, and installs the extension in JupyterLab (in Docker.)"  +
+      "Use this when JupyterLab is already running in another window.",
   :fn => lambda { |*args| install("install", args) }
 })
 
-def run(cmd_name, args)
+def run()
   common = Common.new
   common.run_inline %W{docker-compose up jupyterlab-extensions}
 end
 
 Common.register_command({
   :invocation => "run",
-  :description => "Runs JupyterLab inside Docker.",
-  :fn => lambda { |*args| run("run", args) }
+  :description => "Runs JupyterLab inside Docker. Use Ctrl-C to terminate it.",
+  :fn => lambda { |*args| run() }
 })
+
+def dev_up(cmd_name, args)
+  common = Common.new
+  common.run_inline %W{docker-compose run --rm jupyterlab-extensions ./project.rb install} + args
+  run()
+end
+
+Common.register_command({
+  :invocation => "dev-up",
+  :description => "Cleans, regens, builds, and installs the extension; then runs Jupyter. " +
+      "Use Ctrl-C to terminate it.",
+  :fn => lambda { |*args| dev_up("dev-up", args) }
+})
+
 
 def run_linter()
   Common.new.run_inline %W{docker-compose run --rm jupyterlab-extensions yarn run lint}
