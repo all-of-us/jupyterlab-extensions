@@ -1,0 +1,13 @@
+version: "3"
+services:
+  jupyterlab-extensions:
+    build:
+      context: ./src/dev/server
+    user: ${UID}
+    working_dir: /w
+    volumes:
+      - .:/w:cached
+      - ~/.config:/.config:cached
+    command: jupyter lab --port=8007 --ip=0.0.0.0 --no-browser --notebook-dir=/w/jupyterlab --NotebookApp.token=''
+    ports:
+      - 8007:8007
