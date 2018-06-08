@@ -22,7 +22,6 @@ export class AllOfUsConfig {
     this.cdrVersionCloudProject = obj['CDR_VERSION_CLOUD_PROJECT'];
     this.bucketName = obj['bucket_name'];
     this.config.next(this);
-    console.log('GOT HERE');
   }
 
   public getWorkspaceId(): string

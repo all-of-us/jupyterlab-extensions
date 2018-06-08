@@ -75,7 +75,7 @@ function activateExtension(app: JupyterLab,
       }
     });
 
-    console.log('Hello World 2!');
+    console.log('All Of Us JupyterLab extension in enabled.');
 }
 
 
