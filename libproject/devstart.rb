@@ -62,7 +62,6 @@ Common.register_command({
 
 def install(cmd_name, args)
   ensure_docker cmd_name, args
-  clean("clean")
   swagger_regen("swagger-regen")
   build("build", args)
   common = Common.new
@@ -72,7 +71,7 @@ end
 
 Common.register_command({
   :invocation => "install",
-  :description => "Cleans, regens, builds, and installs the extension in JupyterLab (in Docker.)"  +
+  :description => "Regens, builds, and installs the extension in JupyterLab (in Docker.)"  +
       "Use this when JupyterLab is already running in another window.",
   :fn => lambda { |*args| install("install", args) }
 })
@@ -96,7 +95,7 @@ end
 
 Common.register_command({
   :invocation => "dev-up",
-  :description => "Cleans, regens, builds, and installs the extension; then runs Jupyter. " +
+  :description => "Regens, builds, and installs the extension; then runs Jupyter. " +
       "Use Ctrl-C to terminate it.",
   :fn => lambda { |*args| dev_up("dev-up", args) }
 })
