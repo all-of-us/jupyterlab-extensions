@@ -11,7 +11,7 @@
 # Include your changes to circle.yml in the PR that uses the build image.
 
 # We use OpenJDK 8, Node, and some common browsers from CircleCI's base image
-# see: https://circleci.com/docs/2.0/circleci-images/#language-image-variants 
+# see: https://circleci.com/docs/2.0/circleci-images/#language-image-variants
 FROM circleci/openjdk:8-jdk-node-browsers
 
 USER circleci

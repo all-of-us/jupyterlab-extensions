@@ -16,7 +16,7 @@ jobs:
       - run:
           name: Download Swagger CLI
           command: |
-            ruby -r ./aou-utils/swagger.rb -e Workbench::Swagger.download_swagger_codegen_cli
+            ruby -r ./utils/swagger.rb -e Workbench::Swagger.download_swagger_codegen_cli
       - restore_cache:
           keys:
           - jupyterlab-extensions-cache-{{ checksum "~/jupyterlab-extensions/package.json" }}
