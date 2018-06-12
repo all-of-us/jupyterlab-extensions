@@ -38,3 +38,4 @@ ENV JUPYTER_CONFIG_DIR /w/jupyterlab
 ENV JUPYTER_PATH /w/jupyterlab
 ENV JUPYTER_RUNTIME_DIR /w/jupyterlab
 ENV XDG_DATA_HOME /w/jupyterlab
+ENV YARN_CACHE_FOLDER=/w/.yarncache

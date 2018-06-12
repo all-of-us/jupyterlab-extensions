@@ -1,23 +1,18 @@
+import {Subject} from 'rxjs/Rx';
 
-import {
-    INotebookTracker
-} from '@jupyterlab/notebook';
+import {INotebookTracker} from '@jupyterlab/notebook';
 
-import {
-  ContentsManager
-} from '@jupyterlab/services';
+import {ContentsManager} from '@jupyterlab/services';
 
-import {
-  ICommandPalette
-} from '@jupyterlab/apputils';
+import {ICommandPalette} from '@jupyterlab/apputils';
 
 import {
   JupyterLab,
   JupyterLabPlugin
 } from '@jupyterlab/application';
 
-import {AllOfUsConfig} from './config';
 import {ConceptsWidget} from './concepts-widget';
+import {AllOfUsConfig} from './config';
 
 import '../style/index.css';
 
@@ -25,14 +20,16 @@ import '../style/index.css';
 function activateExtension(app: JupyterLab,
                            notebooks: INotebookTracker,
                            palette: ICommandPalette): void {
-    const tracker = notebooks;
-    let allOfUsConfig = new AllOfUsConfig();
+    const allOfUsConfig = new AllOfUsConfig();
+    const configSubject = new Subject<AllOfUsConfig>();
+    const configObservable = configSubject.asObservable();
 
     // Create a single widget
-    let conceptsWidget: ConceptsWidget = new ConceptsWidget(allOfUsConfig);
+    const conceptsWidget = new ConceptsWidget(allOfUsConfig, configObservable);
+
 
     // Add an application command
-    const conceptsCommand: string = 'allOfUs:concepts';
+    const conceptsCommand = 'allOfUs:concepts';
     app.commands.addCommand(conceptsCommand, {
       label: 'All of Us Concepts',
       execute: () => {
@@ -45,31 +42,32 @@ function activateExtension(app: JupyterLab,
       }
     });
 
-
     // Add the command to the palette.
     palette.addItem({command: conceptsCommand, category: 'All Of Us'});
 
-    let initial_load = true;
-    tracker.currentChanged.connect(() =>
-    {
-      if (tracker.currentWidget) {
-        let path = tracker.currentWidget.context.path;
-        let slashIndex = path.lastIndexOf('/');
-        let directory = ''
-        if (slashIndex != -1) {
+    let initialLoad = true;
+    let lastJson: string = null;
+    notebooks.currentChanged.connect(() => {
+      if (notebooks.currentWidget) {
+        const path = notebooks.currentWidget.context.path;
+        const slashIndex = path.lastIndexOf('/');
+        let directory = '';
+        if (slashIndex !== -1) {
           directory = path.substring(0, slashIndex + 1);
         }
-        let contents = new ContentsManager();
+        const contents = new ContentsManager();
         contents.get(directory + '.all_of_us_config.json').then(
               (model) => {
-                allOfUsConfig.setJson(model.content);
+                if (lastJson !== model.content) {
+                  allOfUsConfig.setJson(model.content);
+                  configSubject.next(allOfUsConfig);
+                  lastJson = model.content;
+                }
               }
         );
-
-
       }
-      if (initial_load) {
-        initial_load = false;
+      if (initialLoad) {
+        initialLoad = false;
         // As soon as the UI has finished loading, make the concepts widget appear.
         setTimeout(() => { app.commands.execute(conceptsCommand); }, 0);
       }

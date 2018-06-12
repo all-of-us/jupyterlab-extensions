@@ -2,26 +2,28 @@ import {
   Widget
 } from '@phosphor/widgets';
 
+import {Observable} from 'rxjs/Rx';
 import {AllOfUsConfig} from './config';
 
 export class ConceptsWidget extends Widget {
 
-  constructor(allOfUsConfig: AllOfUsConfig) {
+  constructor(allOfUsConfig: AllOfUsConfig, configObservable: Observable<AllOfUsConfig>) {
     super();
     this.id = 'allofus-concepts';
     this.title.label = 'Concepts';
     this.title.closable = true;
 
-    let tbl = document.createElement('table');
-    let tbody = tbl.createTBody();
-    let workspaceIdRow = tbody.insertRow(0);
-    let workspaceIdLabelCell = workspaceIdRow.insertCell(0);
-    workspaceIdLabelCell.innerHTML = 'Workspace ID:';
-    let workspaceIdValueCell = workspaceIdRow.insertCell(1);
-    workspaceIdValueCell.innerHTML = allOfUsConfig.getWorkspaceId();
+    const tbl = document.createElement('table');
+    const tbody = tbl.createTBody();
+    const workspaceIdRow = tbody.insertRow(0);
+    const workspaceIdLabelCell = workspaceIdRow.insertCell(0);
+    workspaceIdLabelCell.textContent = 'Workspace ID:';
+    const workspaceIdValueCell = workspaceIdRow.insertCell(1);
+    workspaceIdValueCell.textContent = allOfUsConfig.workspaceId;
     this.node.appendChild(tbl);
 
-    allOfUsConfig.config$.subscribe((config) => { workspaceIdValueCell.innerHTML = 'now: ' + config.getWorkspaceId(); },
-      (e) => {}, () => {});
+    configObservable.subscribe((config) => {
+      workspaceIdValueCell.textContent = 'now: ' + config.workspaceId;
+    }, (e) => {}, () => {});
   }
 }
