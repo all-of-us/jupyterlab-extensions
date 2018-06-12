@@ -7,7 +7,7 @@ import {AllOfUsConfig} from './config';
 
 export class ConceptsWidget extends Widget {
 
-  constructor(allOfUsConfig: AllOfUsConfig, configObservable: Observable<AllOfUsConfig>) {
+  constructor(configObservable: Observable<AllOfUsConfig>) {
     super();
     this.id = 'allofus-concepts';
     this.title.label = 'Concepts';
@@ -19,11 +19,10 @@ export class ConceptsWidget extends Widget {
     const workspaceIdLabelCell = workspaceIdRow.insertCell(0);
     workspaceIdLabelCell.textContent = 'Workspace ID:';
     const workspaceIdValueCell = workspaceIdRow.insertCell(1);
-    workspaceIdValueCell.textContent = allOfUsConfig.workspaceId;
     this.node.appendChild(tbl);
 
     configObservable.subscribe((config) => {
       workspaceIdValueCell.textContent = 'now: ' + config.workspaceId;
-    }, (e) => {}, () => {});
+    });
   }
 }

@@ -20,13 +20,11 @@ import '../style/index.css';
 function activateExtension(app: JupyterLab,
                            notebooks: INotebookTracker,
                            palette: ICommandPalette): void {
-    const allOfUsConfig = new AllOfUsConfig();
     const configSubject = new Subject<AllOfUsConfig>();
     const configObservable = configSubject.asObservable();
 
     // Create a single widget
-    const conceptsWidget = new ConceptsWidget(allOfUsConfig, configObservable);
-
+    const conceptsWidget = new ConceptsWidget(configObservable);
 
     // Add an application command
     const conceptsCommand = 'allOfUs:concepts';
@@ -59,8 +57,7 @@ function activateExtension(app: JupyterLab,
         contents.get(directory + '.all_of_us_config.json').then(
               (model) => {
                 if (lastJson !== model.content) {
-                  allOfUsConfig.setJson(model.content);
-                  configSubject.next(allOfUsConfig);
+                  configSubject.next(AllOfUsConfig.fromJson(model.content));
                   lastJson = model.content;
                 }
               }
