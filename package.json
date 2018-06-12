@@ -19,6 +19,7 @@
     "codegen-clean": "rm -rf src/generated",
     "codegen-swagger": "java -jar utils/swagger-codegen-cli.jar generate --lang typescript-angular --input-spec https://raw.githubusercontent.com/all-of-us/workbench/$npm_package_config_api_tag/api/src/main/resources/client_api.yaml --output src/generated --additional-properties ngVersion=2",
     "post-codegen": "sed -i.bak -e 's/OpaqueToken/InjectionToken/' src/generated/variables.ts",
+    "lint": "node_modules/tslint/bin/tslint --project tsconfig.json",
     "build": "tsc",
     "clean": "rm -rf lib",
     "watch": "tsc -w"
@@ -35,11 +36,13 @@
   },
   "dependencies": {
     "@jupyterlab/application": "^0.16.0",
+    "@jupyterlab/notebook": "^0.16.0",
+    "rxjs": "^5.5.6",
     "npm": "^6.1.0"
   },
   "devDependencies": {
-    "rimraf": "^2.6.1",
-    "typescript": "~2.6.0"
+    "typescript": "~2.6.0",
+    "tslint": "^5.9.1"
   },
   "jupyterlab": {
     "extension": true

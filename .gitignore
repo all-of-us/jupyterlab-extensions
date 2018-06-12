@@ -1,3 +1,4 @@
+.yarncache/*
 jupyterlab/*
 yarn.lock
 src/generated/*

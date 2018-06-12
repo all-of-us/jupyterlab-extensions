@@ -1,0 +1,8 @@
+{
+  "WORKSPACE_ID": "mynewworkspace",
+  "API_HOST": "api-dot-all-of-us-workbench-test.appspot.com",
+  "CDR_VERSION_BIGQUERY_DATASET": "test_merge_dec26",
+  "WORKSPACE_NAMESPACE": "aou-test-f1-2",
+  "BUCKET_NAME": "fc-aeff9de0-235c-4338-b735-3cbd4d5db50c",
+  "CDR_VERSION_CLOUD_PROJECT": "all-of-us-ehr-dev"
+}
