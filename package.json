@@ -1,23 +1,24 @@
 {
   "name": "jupyterlab_allofus",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "Extension for All of Us Jupyter notebooks.",
   "keywords": [
     "jupyter",
     "jupyterlab",
     "jupyterlab-extension"
   ],
-  "config" : { "api_tag" : "api_v1_7" },
+  "config": {
+    "api_tag": "api_v1_7"
+  },
   "homepage": "https://github.com/all-of-us/jupyterlab-extensions",
   "bugs": {
     "url": "https://github.com/all-of-us/jupyterlab-extensions/issues"
   },
-  "license" : "BSD-3-Clause",
-  "version": "0.0.1",
+  "license": "BSD-3-Clause",
   "scripts": {
     "codegen": "yarn run codegen-clean && yarn run codegen-swagger",
     "codegen-clean": "rm -rf src/generated",
-    "codegen-swagger": "java -jar utils/swagger-codegen-cli.jar generate --lang typescript-node --input-spec https://raw.githubusercontent.com/all-of-us/workbench/$npm_package_config_api_tag/api/src/main/resources/client_api.yaml --output src/generated --additional-properties ngVersion=2",
+    "codegen-swagger": "java -jar swagger-codegen-cli-2.3.0.jar generate --lang typescript-node --input-spec https://raw.githubusercontent.com/all-of-us/workbench/$npm_package_config_api_tag/api/src/main/resources/client_api.yaml --output src/generated --additional-properties ngVersion=2",
     "lint": "node_modules/tslint/bin/tslint --project tsconfig.json",
     "build": "tsc",
     "clean": "rm -rf lib",
@@ -41,12 +42,11 @@
     "bluebird": "^3.5.0",
     "request": "^2.81.0",
     "rewire": "^3.0.2",
-    "rxjs": "^5.5.6",
-    "npm": "^6.1.0"
+    "rxjs": "^5.5.6"
   },
   "devDependencies": {
-    "typescript": "~2.6.0",
-    "tslint": "^5.9.1"
+    "tslint": "^5.9.1",
+    "typescript": "~2.6.0"
   },
   "jupyterlab": {
     "extension": true
