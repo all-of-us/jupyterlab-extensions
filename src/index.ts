@@ -11,8 +11,8 @@ import {
   JupyterLabPlugin
 } from '@jupyterlab/application';
 
-import {ConceptsWidget} from './concepts-widget';
 import {AllOfUsConfig} from './config';
+import {ConceptsWidget} from './widgets/concepts-widget';
 
 import '../style/index.css';
 

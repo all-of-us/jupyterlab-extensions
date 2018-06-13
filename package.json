@@ -1,19 +1,20 @@
 {
   "name": "jupyterlab_allofus",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "Extension for All of Us Jupyter notebooks.",
   "keywords": [
     "jupyter",
     "jupyterlab",
     "jupyterlab-extension"
   ],
-  "config" : { "api_tag" : "api_v1_7" },
+  "config": {
+    "api_tag": "api_v1_7"
+  },
   "homepage": "https://github.com/all-of-us/jupyterlab-extensions",
   "bugs": {
     "url": "https://github.com/all-of-us/jupyterlab-extensions/issues"
   },
-  "license" : "BSD-3-Clause",
-  "version": "0.0.1",
+  "license": "BSD-3-Clause",
   "scripts": {
     "codegen": "yarn run codegen-clean && yarn run codegen-swagger && yarn run post-codegen",
     "codegen-clean": "rm -rf src/generated",
@@ -35,6 +36,11 @@
     "url": "https://github.com/all-of-us/jupyterlab-extensions.git"
   },
   "dependencies": {
+    "@angular/common": "6.0.3",
+    "@angular/compiler": "6.0.3",
+    "@angular/core": "6.0.3",
+    "@angular/platform-browser": "6.0.3",
+    "@angular/platform-browser-dynamic": "6.0.3",
     "@jupyterlab/application": "^0.16.0",
     "@jupyterlab/notebook": "^0.16.0",
     "rxjs": "^5.5.6",

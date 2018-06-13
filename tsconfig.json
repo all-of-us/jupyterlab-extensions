@@ -4,11 +4,12 @@
     "noImplicitAny": true,
     "noEmitOnError": true,
     "noUnusedLocals": true,
+    "experimentalDecorators": true,
     "module": "commonjs",
     "moduleResolution": "node",
     "target": "ES5",
     "outDir": "./lib",
-    "lib": ["ES5", "ES2015.Promise", "DOM"],
+    "lib": ["ES5", "ES2015.Promise", "es2015", "ES2015.iterable", "DOM"],
     "types": []
   },
   "include": ["src/*"]
