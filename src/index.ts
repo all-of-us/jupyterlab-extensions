@@ -11,8 +11,9 @@ import {
   JupyterLabPlugin
 } from '@jupyterlab/application';
 
-import {ConceptsWidget} from './concepts-widget';
 import {AllOfUsConfig} from './config';
+import {ConceptsService} from './services/concepts.service';
+import {ConceptsWidget} from './widgets/concepts-widget';
 
 import '../style/index.css';
 
@@ -24,7 +25,8 @@ function activateExtension(app: JupyterLab,
     const configObservable = configSubject.asObservable();
 
     // Create a single widget
-    const conceptsWidget = new ConceptsWidget(configObservable);
+    const conceptsService = new ConceptsService(configObservable);
+    const conceptsWidget = new ConceptsWidget(configObservable, conceptsService);
 
     // Add an application command
     const conceptsCommand = 'allOfUs:concepts';

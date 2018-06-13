@@ -112,5 +112,10 @@
       "check-separator",
       "check-type"
     ]
+  },
+  "linterOptions": {
+    "exclude": [
+      "src/generated/**/*"
+    ]
   }
 }
