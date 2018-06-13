@@ -1,0 +1,37 @@
+version: 2
+
+defaults: &defaults
+  docker:
+    - image: allofustest/jupyterlab-extensions:buildimage-1.1.1
+  working_directory: ~/jupyterlab-extensions
+
+jobs:
+  test:
+     <<: *defaults
+     steps:
+      - checkout
+      - run:
+          name: Fetch Submodules
+          command: git submodule update --init --recursive
+      - restore_cache:
+          keys:
+          - jupyterlab-extensions-cache-{{ checksum "~/jupyterlab-extensions/package.json" }}
+      - run:
+          command: ./project.rb swagger-regen
+      - run:
+          command: ./project.rb build
+      - save_cache:
+          paths:
+            - ~/jupyterlab-extensions/node_modules
+          key: jupyterlab-extensions-cache-{{ checksum "~/jupyterlab-extensions/package.json" }}
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test
+
+experimental:
+  notify:
+    branches:
+      only:
+        - master
