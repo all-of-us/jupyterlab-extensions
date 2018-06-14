@@ -11,16 +11,11 @@ export class ConceptsWidget extends AngularWrapperWidget {
     this.title.label = 'Concepts';
     this.title.closable = true;
 
-    const tbl = document.createElement('table');
-    const tbody = tbl.createTBody();
-    const workspaceIdRow = tbody.insertRow(0);
-    const workspaceIdLabelCell = workspaceIdRow.insertCell(0);
-    workspaceIdLabelCell.textContent = 'Workspace ID:';
-    const workspaceIdValueCell = workspaceIdRow.insertCell(1);
-    this.node.appendChild(tbl);
+    // TODO: make a form with a search textbox input and a button;
+    // when clicked, make an API call and show the results.
 
     configObservable.subscribe((config) => {
-      workspaceIdValueCell.textContent = 'now: ' + config.workspaceId;
+      // TODO: enable the textbox and button
     });
   }
 }
