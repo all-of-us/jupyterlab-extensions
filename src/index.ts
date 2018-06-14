@@ -1,3 +1,4 @@
+
 import {Subject} from 'rxjs/Rx';
 
 import {INotebookTracker} from '@jupyterlab/notebook';
@@ -11,8 +12,10 @@ import {
   JupyterLabPlugin
 } from '@jupyterlab/application';
 
+import 'zone.js';
+
 import {AllOfUsConfig} from './config';
-import {ConceptsWidget} from './widgets/concepts-widget';
+import {ConceptsWidget} from './widgets/concepts/concepts-widget';
 
 import '../style/index.css';
 

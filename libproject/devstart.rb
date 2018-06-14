@@ -66,7 +66,8 @@ def install(cmd_name, args)
   swagger_regen("swagger-regen")
   build("build", args)
   common = Common.new
-  common.run_inline %W{jupyter labextension link .}
+  common.run_inline %W{yarn resources}
+  common.run_inline %W{jupyter labextension link . --dev}
   common.run_inline %W{cp test/all_of_us_config.json jupyterlab/.all_of_us_config.json}
 end
 
@@ -100,7 +101,6 @@ Common.register_command({
       "Use Ctrl-C to terminate it.",
   :fn => lambda { |*args| dev_up("dev-up", args) }
 })
-
 
 def run_linter()
   Common.new.run_inline %W{docker-compose run --rm jupyterlab-extensions yarn run lint}

@@ -1,7 +1,7 @@
-import {AngularWrapperWidget} from './phosphor-angular-loader';
+import {AngularWrapperWidget} from '../phosphor-angular-loader';
 
 import {Observable} from 'rxjs/Rx';
-import {AllOfUsConfig} from '../config';
+import {AllOfUsConfig} from '../../config';
 
 export class ConceptsWidget extends AngularWrapperWidget {
 
