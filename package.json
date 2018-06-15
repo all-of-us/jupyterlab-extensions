@@ -22,7 +22,7 @@
     "post-codegen": "sed -i.bak -e 's/OpaqueToken/InjectionToken/' src/generated/variables.ts",
     "lint": "node_modules/tslint/bin/tslint --project tsconfig.json",
     "build": "tsc",
-    "resources": "copyfiles -u 1 src/**/*.html lib/",
+    "resources": "ncp src lib *.html",
     "clean": "rm -rf lib",
     "watch": "tsc -w"
   },
@@ -37,14 +37,18 @@
     "url": "https://github.com/all-of-us/jupyterlab-extensions.git"
   },
   "dependencies": {
+    "@angular/animations": "5.2.2",
     "@angular/common": "5.2.2",
     "@angular/compiler": "5.2.2",
     "@angular/core": "5.2.2",
+    "@angular/forms": "5.2.2",
     "@angular/http": "5.2.2",
     "@angular/platform-browser": "5.2.2",
     "@angular/platform-browser-dynamic": "5.2.2",
     "@jupyterlab/application": "^0.16.0",
     "@jupyterlab/notebook": "^0.16.0",
+    "@clr/angular": "^0.11.12",
+    "@clr/ui": "^0.11.12",
     "rxjs": "^5.5.6",
     "npm": "^6.1.0",
     "zone.js": "^0.8.26"
@@ -52,7 +56,7 @@
   "devDependencies": {
     "typescript": "~2.6.0",
     "tslint": "^5.9.1",
-    "copyfiles": "^2.0.0"
+    "ncp": "^2.0.0"
   },
   "jupyterlab": {
     "extension": true

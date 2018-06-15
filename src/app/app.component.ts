@@ -41,3 +41,4 @@ const linterWorkaroundHtmlTemplate = '' + htmlTemplate;
 })
 export class AppComponent {
 }
+

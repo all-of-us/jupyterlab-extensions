@@ -3,9 +3,13 @@ import {
   ErrorHandler,
   NgModule,
 } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { AppErrorHandler } from './app-error-handler';
-import { AppComponent } from './app.component';
+import {BrowserModule} from '@angular/platform-browser';
+import {ClarityModule} from '@clr/angular';
+
+import {AppErrorHandler} from './app-error-handler';
+import {AppComponent} from './app.component';
+
+import {ConceptsModule} from '../widgets/concepts/concepts.module';
 
 @NgModule({
   declarations: [
@@ -17,9 +21,11 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
+    ClarityModule,
+    ConceptsModule
   ],
   exports: [
-    AppComponent,
+    AppComponent
   ]
 })
 export class AppModule {
