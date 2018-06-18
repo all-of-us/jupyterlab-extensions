@@ -55,8 +55,10 @@ function activateExtension(app: JupyterLab,
         contents.get(directory + '.all_of_us_config.json').then(
               (model) => {
                 if (lastJson !== model.content) {
-                  AllOfUsConfigService.configSubject.next(
-                      AllOfUsConfig.fromJson(model.content));
+                  conceptsWidget.run(() => {
+                    AllOfUsConfigService.configSubject.next(
+                        AllOfUsConfig.fromJson(model.content));
+                  });
                   lastJson = model.content;
                 }
               }

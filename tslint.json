@@ -21,6 +21,9 @@
     ],
     "interface-over-type-literal": true,
     "label-position": true,
+    "linterOptions": {
+      "exclude": ["/w/src/generated/**/*"]
+    },
     "max-line-length": [
       true,
       100
