@@ -22,13 +22,12 @@
     "post-codegen": "sed -i.bak -e 's/OpaqueToken/InjectionToken/' src/generated/variables.ts",
     "lint": "node_modules/tslint/bin/tslint --project tsconfig.json",
     "build": "tsc",
-    "resources": "ncp src lib *.html",
+    "resources": "ncp src lib *.html *.css",
     "clean": "rm -rf lib",
     "watch": "tsc -w"
   },
   "files": [
-    "lib/**/*.{d.ts,eot,gif,html,jpg,js,js.map,json,png,svg,woff2,ttf}",
-    "style/**/*.{css,eot,gif,html,jpg,json,png,svg,woff2,ttf}"
+    "lib/**/*.{d.ts,eot,gif,html,jpg,js,js.map,json,png,svg,woff2,ttf,css}"
   ],
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

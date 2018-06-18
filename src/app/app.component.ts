@@ -29,6 +29,7 @@ import {Component} from '@angular/core';
 // webpack.config.js file
 // See https://github.com/jupyterlab/jupyterlab/pull/4334#issuecomment-383104318
 import * as htmlTemplate from 'html-loader!./app.component.html';
+import './app.component.css';
 
 // This is currently needed to silence the angular-language-service not finding
 // a template for this component.

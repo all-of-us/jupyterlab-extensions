@@ -1,3 +1,6 @@
-<div>
-  Concept search goes here
+<div class="concept-search">
+  <input [disabled]="!enabled"  [(ngModel)]="query" type="text" id="query"/>
+  <br/>
+  <input [disabled]="!enabled && query != ''" class="search-button" value="Search" type="button"
+         id="search" (click)="searchConcepts()"/>
 </div>

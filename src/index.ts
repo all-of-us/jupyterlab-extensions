@@ -1,6 +1,4 @@
 
-import {Subject} from 'rxjs/Rx';
-
 import {INotebookTracker} from '@jupyterlab/notebook';
 
 import {ContentsManager} from '@jupyterlab/services';
@@ -15,19 +13,16 @@ import {
 import 'zone.js';
 
 import {AllOfUsConfig} from './config';
+import {AllOfUsConfigService} from './services/config.service';
 import {ConceptsWidget} from './widgets/concepts/concepts-widget';
 
-import '../style/index.css';
 
 // Activate the jupyterhub extension.
 function activateExtension(app: JupyterLab,
                            notebooks: INotebookTracker,
                            palette: ICommandPalette): void {
-    const configSubject = new Subject<AllOfUsConfig>();
-    const configObservable = configSubject.asObservable();
-
     // Create a single widget
-    const conceptsWidget = new ConceptsWidget(configObservable);
+    const conceptsWidget = new ConceptsWidget();
 
     // Add an application command
     const conceptsCommand = 'allOfUs:concepts';
@@ -60,7 +55,8 @@ function activateExtension(app: JupyterLab,
         contents.get(directory + '.all_of_us_config.json').then(
               (model) => {
                 if (lastJson !== model.content) {
-                  configSubject.next(AllOfUsConfig.fromJson(model.content));
+                  AllOfUsConfigService.configSubject.next(
+                      AllOfUsConfig.fromJson(model.content));
                   lastJson = model.content;
                 }
               }
