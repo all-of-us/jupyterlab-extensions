@@ -3,6 +3,7 @@ import {
   ErrorHandler,
   NgModule,
 } from '@angular/core';
+import {FormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {ClarityModule} from '@clr/angular';
 
@@ -22,7 +23,8 @@ import {ConceptsModule} from '../widgets/concepts/concepts.module';
   imports: [
     BrowserModule,
     ClarityModule,
-    ConceptsModule
+    ConceptsModule,
+    FormsModule
   ],
   exports: [
     AppComponent
