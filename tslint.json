@@ -21,9 +21,6 @@
     ],
     "interface-over-type-literal": true,
     "label-position": true,
-    "linterOptions": {
-      "exclude": ["/w/src/generated/**/*"]
-    },
     "max-line-length": [
       true,
       100
@@ -115,5 +112,8 @@
       "check-separator",
       "check-type"
     ]
+  },
+  "linterOptions": {
+    "exclude": ["src/generated/**/*"]
   }
 }

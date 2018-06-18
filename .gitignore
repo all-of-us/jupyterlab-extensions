@@ -1,5 +1,6 @@
 .yarncache/*
 jupyterlab/*
+jupyterlab_allofus*.tgz
 yarn.lock
 src/generated/*
 yarn-error.log

@@ -4,9 +4,9 @@ import * as htmlTemplate from 'html-loader!./concept-search.component.html';
 import './concept-search.component.css';
 
 import {AllOfUsConfig} from '../../../config';
-import {AllOfUsConfigService} from '../../../services/config.service';
 import {ConceptsService} from '../../../generated/api/concepts.service';
 import {Concept} from '../../../generated/model/concept';
+import {AllOfUsConfigService} from '../../../services/config.service';
 
 const template = '' + htmlTemplate;
 
@@ -20,7 +20,7 @@ export class ConceptSearchComponent {
   enabled = false;
   conceptsTableVisible = false;
   conceptsLoading = false;
-  concepts : Array<Concept>;
+  concepts: Array<Concept>;
   query = '';
 
   constructor(private conceptsService: ConceptsService) {
