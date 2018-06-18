@@ -21,7 +21,7 @@
     "codegen-swagger": "java -jar utils/swagger-codegen-cli.jar generate --lang typescript-angular --input-spec https://raw.githubusercontent.com/all-of-us/workbench/$npm_package_config_api_tag/api/src/main/resources/client_api.yaml --output src/generated --additional-properties ngVersion=2",
     "post-codegen": "sed -i.bak -e 's/OpaqueToken/InjectionToken/' src/generated/variables.ts",
     "lint": "node_modules/tslint/bin/tslint --project tsconfig.json",
-    "build": "tsc",
+    "build": "ng build && tsc",
     "package": "rm jupyterlab_allofus-*.tgz && yarn pack",
     "resources": "ncp src lib *.html *.css",
     "clean": "rm -rf lib"
@@ -48,11 +48,14 @@
     "@jupyterlab/notebook": "^0.16.0",
     "@clr/angular": "^0.11.12",
     "@clr/ui": "^0.11.12",
+    "html-loader": "^0.3.0",
     "rxjs": "^5.5.6",
     "npm": "^6.1.0",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
+    "@angular/cli": "^1.6.6",
+    "@angular/compiler-cli": "^5.2.2",
     "typescript": "~2.6.0",
     "tslint": "^5.9.1",
     "ncp": "^2.0.0"

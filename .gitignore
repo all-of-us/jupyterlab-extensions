@@ -1,3 +1,4 @@
+dist/*
 .yarncache/*
 jupyterlab/*
 jupyterlab_allofus*.tgz

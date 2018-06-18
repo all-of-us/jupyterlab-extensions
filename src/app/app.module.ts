@@ -10,8 +10,6 @@ import {ClarityModule} from '@clr/angular';
 import {AppErrorHandler} from './app-error-handler';
 import {AppComponent} from './app.component';
 
-import {ConceptsService} from '../generated/api/concepts.service';
-
 import {
   ApiModule,
   Configuration,
@@ -57,7 +55,6 @@ export function getConfiguration(): Configuration {
       useClass: InterceptedHttp,
       deps: [XHRBackend, RequestOptions, ErrorHandlingService]
     },
-    ConceptsService,
   ],
   imports: [
     ApiModule,
