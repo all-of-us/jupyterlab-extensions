@@ -22,8 +22,9 @@
     "post-codegen": "sed -i.bak -e 's/OpaqueToken/InjectionToken/' src/generated/variables.ts",
     "lint": "node_modules/tslint/bin/tslint --project tsconfig.json",
     "build": "tsc",
-    "package": "rm jupyterlab_allofus-*.tgz && yarn pack",
     "resources": "ncp src lib *.html *.css",
+    "package": "rm jupyterlab_allofus-*.tgz && yarn pack",
+    "install-extension": "jupyter labextension install jupyterlab_allofus-v0.0.1.tgz --dev",
     "clean": "yarn cache clean && rm -rf lib"
   },
   "files": [
@@ -48,6 +49,7 @@
     "@jupyterlab/notebook": "^0.16.0",
     "@clr/angular": "^0.11.12",
     "@clr/ui": "^0.11.12",
+    "css-loader": "^0.28.11",
     "html-loader": "^0.3.0",
     "core-js": "^2.4.1",
     "rxjs": "^5.5.6",
