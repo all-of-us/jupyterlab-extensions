@@ -1,10 +1,10 @@
+import { HttpClientModule } from '@angular/common/http';
 import {
   ApplicationRef,
   ErrorHandler,
   NgModule,
 } from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {Http, HttpModule, RequestOptions, XHRBackend} from '@angular/http';
 import {BrowserModule} from '@angular/platform-browser';
 import {ClarityModule} from '@clr/angular';
 
@@ -14,27 +14,27 @@ import {AppComponent} from './app.component';
 import {
   ApiModule,
   Configuration,
+  ConfigurationParameters
 } from '../generated';
 import {AllOfUsConfigService} from '../services/config.service';
-import {ErrorHandlingService} from '../services/error-handling.service';
 import {
   CohortConceptsComponent
 } from '../widgets/concepts/cohort-concepts/cohort-concepts.component';
 import {
   ConceptSearchComponent
 } from '../widgets/concepts/concept-search/concept-search.component';
-import {InterceptedHttp} from './intercepted-http';
 
 function getBasePath() {
   return AllOfUsConfigService.configSubject.getValue().apiHost;
 }
 
 // "Configuration" means Swagger API Client configuration.
-export function getConfiguration(): Configuration {
-  return new Configuration({
+export function apiConfigFactory(): Configuration {
+  const params: ConfigurationParameters = {
     basePath: getBasePath()
     // accessToken: () => signInService.currentAccessToken
-  });
+  }
+  return new Configuration(params);
 }
 
 @NgModule({
@@ -45,25 +45,14 @@ export function getConfiguration(): Configuration {
   ],
   entryComponents: [AppComponent],
   providers: [
-
     { provide: ErrorHandler, useClass: AppErrorHandler },
-    ErrorHandlingService,
-    {
-      provide: Configuration,
-      useFactory: getConfiguration
-    },
-    {
-      provide: Http,
-      useClass: InterceptedHttp,
-      deps: [XHRBackend, RequestOptions, ErrorHandlingService]
-    },
   ],
   imports: [
-    ApiModule,
+    ApiModule.forRoot(apiConfigFactory),
     BrowserModule,
     ClarityModule,
     FormsModule,
-    HttpModule,
+    HttpClientModule
   ],
   exports: [
     AppComponent
