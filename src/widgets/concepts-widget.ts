@@ -26,8 +26,13 @@ export class ConceptsWidget extends Widget {
 
     this.searchInput = document.createElement('input');
     this.searchInput.type = 'button';
+    this.searchInput.value = 'Search';
     this.searchInput.addEventListener('click', (event) => {
       console.log('You entered: ' + this.queryInput.value);
+      conceptsService.searchConcepts({query: this.queryInput.value})
+          .then((concepts) => {
+            console.log('concepts = ' + concepts);
+          });
     });
     this.searchInput.disabled = true;
 
@@ -38,7 +43,7 @@ export class ConceptsWidget extends Widget {
     queryInputCell.colSpan = 2;
     queryInputCell.appendChild(this.queryInput);
 
-    const searchInputRow = tbody.insertRow(0);
+    const searchInputRow = tbody.insertRow(1);
     const searchInputCell = searchInputRow.insertCell(0);
     searchInputCell.appendChild(this.searchInput);
 

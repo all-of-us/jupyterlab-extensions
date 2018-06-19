@@ -16,6 +16,7 @@ import {ConceptsService} from './services/concepts.service';
 import {ConceptsWidget} from './widgets/concepts-widget';
 
 import '../style/index.css';
+import {AuthService} from './services/auth.service';
 
 // Activate the jupyterhub extension.
 function activateExtension(app: JupyterLab,
@@ -24,8 +25,9 @@ function activateExtension(app: JupyterLab,
     const configSubject = new Subject<AllOfUsConfig>();
     const configObservable = configSubject.asObservable();
 
-    // Create a single widget
-    const conceptsService = new ConceptsService(configObservable);
+    const authService = new AuthService();
+    authService.loadGapi();
+    const conceptsService = new ConceptsService(authService, configObservable);
     const conceptsWidget = new ConceptsWidget(configObservable, conceptsService);
 
     // Add an application command

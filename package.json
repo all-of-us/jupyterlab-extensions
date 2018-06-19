@@ -18,7 +18,7 @@
   "scripts": {
     "codegen": "yarn run codegen-clean && yarn run codegen-swagger",
     "codegen-clean": "rm -rf src/generated",
-    "codegen-swagger": "java -jar swagger-codegen-cli-2.3.0.jar generate --lang typescript-node --input-spec https://raw.githubusercontent.com/all-of-us/workbench/$npm_package_config_api_tag/api/src/main/resources/client_api.yaml --output src/generated --additional-properties ngVersion=2",
+    "codegen-swagger": "java -jar swagger-codegen-cli-2.3.0.jar generate --lang typescript-fetch --input-spec https://raw.githubusercontent.com/all-of-us/workbench/$npm_package_config_api_tag/api/src/main/resources/client_api.yaml --output src/generated --additional-properties ngVersion=2",
     "lint": "node_modules/tslint/bin/tslint --project tsconfig.json",
     "build": "tsc",
     "clean": "rm -rf lib",
@@ -37,12 +37,9 @@
   "dependencies": {
     "@jupyterlab/application": "^0.16.0",
     "@jupyterlab/notebook": "^0.16.0",
-    "@types/bluebird": "*",
-    "@types/request": "*",
-    "bluebird": "^3.5.0",
-    "request": "^2.81.0",
-    "rewire": "^3.0.2",
-    "rxjs": "^5.5.6"
+    "portable-fetch": "^3.0.0",
+    "rxjs": "^5.5.6",
+    "url": "^0.11.0"
   },
   "devDependencies": {
     "tslint": "^5.9.1",
