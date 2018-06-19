@@ -23,7 +23,6 @@
     "lint": "node_modules/tslint/bin/tslint --project tsconfig.json",
     "build": "tsc",
     "package": "rm jupyterlab_allofus-*.tgz && yarn pack",
-    "check-deps": "cd jupyterlab/staging && webpack --json --config webpack.config.js > stats.json && iscyclic stats.json",
     "resources": "ncp src lib *.html *.css",
     "clean": "yarn cache clean && rm -rf lib"
   },
@@ -60,8 +59,7 @@
     "@angular/compiler-cli": "^5.2.2",
     "typescript": "~2.6.0",
     "tslint": "^5.9.1",
-    "ncp": "^2.0.0",
-    "webpack-cyclic-dependency-checker": "latest"
+    "ncp": "^2.0.0"
   },
   "jupyterlab": {
     "extension": true
