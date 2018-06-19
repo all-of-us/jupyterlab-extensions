@@ -1,4 +1,5 @@
 import {
+  ApplicationRef,
   ErrorHandler,
   NgModule,
 } from '@angular/core';
@@ -44,12 +45,13 @@ export function getConfiguration(): Configuration {
   ],
   entryComponents: [AppComponent],
   providers: [
+
+    { provide: ErrorHandler, useClass: AppErrorHandler },
+    ErrorHandlingService,
     {
       provide: Configuration,
       useFactory: getConfiguration
     },
-    { provide: ErrorHandler, useClass: AppErrorHandler },
-    ErrorHandlingService,
     {
       provide: Http,
       useClass: InterceptedHttp,
@@ -68,4 +70,5 @@ export function getConfiguration(): Configuration {
   ]
 })
 export class AppModule {
+  ngDoBootstrap(app: ApplicationRef) {}
 }

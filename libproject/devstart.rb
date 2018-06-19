@@ -36,7 +36,7 @@ def build(cmd_name, args)
   ensure_docker cmd_name, args
 
   common = Common.new
-  common.run_inline %W{yarn install}
+  common.run_inline %W{yarn install --network-concurrency 1}
   common.run_inline %W{yarn lint}
   common.run_inline %W{yarn run build}
 end
