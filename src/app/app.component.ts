@@ -24,12 +24,15 @@
 
 import {Component} from '@angular/core';
 
+import {ErrorHandlingService} from './services/error-handling.service';
+
 // JupyterLab doesn't have custom webpack loaders. Need to be able to
 // inline the loaders so that they get picked up without having access to the
 // webpack.config.js file
 // See https://github.com/jupyterlab/jupyterlab/pull/4334#issuecomment-383104318
 import * as htmlTemplate from 'html-loader!./app.component.html';
 import './app.component.css';
+
 
 // This is currently needed to silence the angular-language-service not finding
 // a template for this component.
@@ -41,5 +44,8 @@ const linterWorkaroundHtmlTemplate = '' + htmlTemplate;
   template: linterWorkaroundHtmlTemplate
 })
 export class AppComponent {
+  constructor(errorHandlingService: ErrorHandlingService) {
+    console.log('ehs = ' + errorHandlingService);
+  }
 }
 

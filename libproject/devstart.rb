@@ -67,7 +67,6 @@ def install(cmd_name, args)
   build("build", args)
   common = Common.new
   common.run_inline %W{yarn resources}
-  common.run_inline %W{yarn package}
   common.run_inline %W{yarn install-extension}
   common.run_inline %W{cp test/all_of_us_config.json jupyterlab/.all_of_us_config.json}
 end

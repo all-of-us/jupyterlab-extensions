@@ -4,7 +4,7 @@ import {Injectable} from '@angular/core';
 import {ConnectionBackend, Http, Request, RequestOptions, RequestOptionsArgs,
   Response} from '@angular/http';
 import {Observable, Subject} from 'rxjs/Rx';
-import {ErrorHandlingService} from '../services/error-handling.service';
+import {ErrorHandlingService} from './services/error-handling.service';
 
 @Injectable()
 export class InterceptedHttp extends Http {

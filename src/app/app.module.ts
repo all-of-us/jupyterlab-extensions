@@ -1,3 +1,7 @@
+import {ErrorHandlingService} from './services/error-handling.service';
+
+import {AllOfUsConfigService} from '../services/config.service';
+
 import { HttpClientModule } from '@angular/common/http';
 import {
   ApplicationRef,
@@ -12,17 +16,19 @@ import {AppErrorHandler} from './app-error-handler';
 import {AppComponent} from './app.component';
 
 import {
-  ApiModule,
+//  ApiModule,
   Configuration,
   ConfigurationParameters
 } from '../generated';
-import {AllOfUsConfigService} from '../services/config.service';
+
+
 import {
   CohortConceptsComponent
 } from '../widgets/concepts/cohort-concepts/cohort-concepts.component';
 import {
   ConceptSearchComponent
 } from '../widgets/concepts/concept-search/concept-search.component';
+
 
 function getBasePath() {
   return AllOfUsConfigService.configSubject.getValue().apiHost;
@@ -46,9 +52,10 @@ export function apiConfigFactory(): Configuration {
   entryComponents: [AppComponent],
   providers: [
     { provide: ErrorHandler, useClass: AppErrorHandler },
+    ErrorHandlingService
   ],
   imports: [
-    ApiModule.forRoot(apiConfigFactory),
+    // ApiModule.forRoot(apiConfigFactory),
     BrowserModule,
     ClarityModule,
     FormsModule,
