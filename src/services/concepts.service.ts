@@ -21,17 +21,16 @@ export class ConceptsService {
   }
 
   private conceptsApi(): ConceptsApi {
-    return new ConceptsApi({ basePath: 'https://' + this.apiHost,
-        accessToken: this.authService.currentAccessToken});
+    return new ConceptsApi({
+      basePath: 'https://' + this.apiHost,
+      accessToken: this.authService.currentAccessToken
+    });
   }
 
-  public searchConcepts(request: SearchConceptsRequest)
-      : Promise<Array<Concept>> {
+  public searchConcepts(request: SearchConceptsRequest): Promise<Array<Concept>> {
     return this.conceptsApi().searchConcepts(this.workspaceNamespace,
         this.workspaceId, request)
-        .then((res) => {
-          return res.items;
-        });
+        .then((res) => res.items);
   }
 
 }

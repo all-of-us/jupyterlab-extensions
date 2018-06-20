@@ -28,8 +28,7 @@ export class AuthService {
           hosted_domain: 'fake-research-aou.org',
           scope: 'https://www.googleapis.com/auth/plus.login openid profile'
         }).then(() => {
-          const newAccessToken = this.currentAccessToken;
-          if (!newAccessToken) {
+          if (!this.currentAccessToken) {
             this.signIn();
           }
         });
@@ -40,13 +39,11 @@ export class AuthService {
   public get currentAccessToken() {
     if (!gapi.auth2 || !gapi.auth2.getAuthInstance()) {
       return null;
-    } else {
-      const authResponse = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse(true);
-      if (authResponse !== null) {
-        return authResponse.access_token;
-      } else {
-        return null;
-      }
     }
+    const authResponse = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse(true);
+    if (authResponse !== null) {
+      return authResponse.access_token;
+    }
+    return null;
   }
 }
