@@ -1,3 +1,5 @@
+import {INotebookTracker} from '@jupyterlab/notebook';
+
 import {
   Widget
 } from '@phosphor/widgets';
@@ -14,11 +16,16 @@ export class ConceptsWidget extends Widget {
   private conceptsDiv: HTMLDivElement;
   private conceptsTable: HTMLTableElement;
   private conceptsTBody: HTMLTableSectionElement;
+  private generateCodeInput: HTMLInputElement;
+  private selectedRow: HTMLTableRowElement;
+  private selectedConceptName: string;
   private loadingImage: HTMLImageElement;
 
   constructor(configObservable: Observable<AllOfUsConfig>,
-              conceptsService: ConceptsService) {
+              conceptsService: ConceptsService,
+              notebooks: INotebookTracker) {
     super();
+
     this.id = 'allofus-concepts';
     this.title.label = 'Concepts';
     this.title.closable = true;
@@ -68,6 +75,19 @@ export class ConceptsWidget extends Widget {
     headerRow.insertCell().textContent = 'Count';
     this.conceptsTBody = this.conceptsTable.createTBody();
 
+    this.generateCodeInput = document.createElement('input');
+    this.generateCodeInput.type = 'button';
+    this.generateCodeInput.value = 'Generate Code';
+    this.generateCodeInput.addEventListener('click', (event) => {
+      console.log('Generating code...');
+      const model = notebooks.currentWidget.model;
+      const cell = model.contentFactory.createCodeCell({});
+      cell.modelDB.createString('# Code for ' + this.selectedConceptName + ' goes here.');
+      model.cells.insert(model.cells.length, cell);
+    });
+    this.generateCodeInput.disabled = true;
+    this.conceptsDiv.appendChild(this.generateCodeInput);
+
     this.loadingImage = document.createElement('img');
     this.loadingImage.src = 'https://vignette.wikia.nocookie.net/'
       + 'epicrapbattlesofhistory/images/c/c2/Peanut-butter-jelly-time.gif'
@@ -90,6 +110,10 @@ export class ConceptsWidget extends Widget {
     const newTBody = document.createElement('tbody');
     for (const concept of concepts) {
       const row = newTBody.insertRow();
+      row.addEventListener('click', (event) => {
+        this.selectRow(row);
+        this.selectedConceptName = concept.conceptName;
+      });
       row.insertCell().textContent = String(concept.conceptId);
       row.insertCell().textContent = concept.conceptName;
       row.insertCell().textContent = concept.conceptCode;
@@ -101,5 +125,14 @@ export class ConceptsWidget extends Widget {
     this.conceptsTBody = newTBody;
     this.loadingImage.style.display = 'none';
     this.conceptsDiv.style.display = 'block';
+  }
+
+  private selectRow(row: HTMLTableRowElement) {
+    if (this.selectedRow != null) {
+      this.selectedRow.style.backgroundColor = 'white';
+    }
+    this.selectedRow = row;
+    this.selectedRow.style.backgroundColor = '#BBBBFF';
+    this.generateCodeInput.disabled = false;
   }
 }

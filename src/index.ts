@@ -28,7 +28,7 @@ function activateExtension(app: JupyterLab,
     const authService = new AuthService();
     authService.loadGapi();
     const conceptsService = new ConceptsService(authService, configObservable);
-    const conceptsWidget = new ConceptsWidget(configObservable, conceptsService);
+    const conceptsWidget = new ConceptsWidget(configObservable, conceptsService, notebooks);
 
     // Add an application command
     const conceptsCommand = 'allOfUs:concepts';
