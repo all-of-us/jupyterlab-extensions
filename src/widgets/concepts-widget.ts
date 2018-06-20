@@ -18,12 +18,12 @@ export class ConceptsWidget extends Widget {
     this.title.label = 'Concepts';
     this.title.closable = true;
 
-    this.queryInput = document.createElement('input');
-    this.queryInput.type = 'text';
-    this.queryInput.maxLength = 80;
-    this.queryInput.size = 80;
-    this.queryInput.disabled = true;
+    const conceptsWidgetDiv = document.createElement('div');
+    conceptsWidgets.id = 'concepts-widgets';
 
+    ReactDOM.render(<ConceptSearchForm />, document.getElementById("concepts-widgets"));
+
+    /*
     this.searchInput = document.createElement('input');
     this.searchInput.type = 'button';
     this.searchInput.value = 'Search';
@@ -54,5 +54,6 @@ export class ConceptsWidget extends Widget {
       this.searchInput.disabled = false;
       console.log('Workspace ID is now: ' + config.workspaceId);
     });
+    */
   }
 }
