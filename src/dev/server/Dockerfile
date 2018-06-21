@@ -20,6 +20,10 @@ RUN apk --no-cache add openjdk8-jre git python3-dev gcc linux-headers libc-dev a
 RUN pip install jupyter
 RUN pip install jupyterlab
 
+RUN apk --no-cache add ruby ruby-json ruby-io-console
+
+RUN npm install yarn -g
+
 # We touch yarn's config file here so that we can explicitly make sure
 # yarn has permission to read/write to it, even though its empty.
 # Without this yarn will complain it can't open its config file.
@@ -27,7 +31,13 @@ RUN mkdir -p /.cache/yarn /.yarn \
     && touch /.yarnrc \
     && chmod a+rwx /.cache/yarn /.yarn /.yarnrc
 
-RUN apk --no-cache add ruby ruby-json ruby-io-console
+# We touch npm's config file here so that we can explicitly make sure
+# npm has permission to read/write to it, even though its empty.
+# Without this npm will complain it can't open its config file.
+RUN mkdir -p /.npm/npm /.npm \
+    && touch /.npmrc \
+    && chmod a+rwx /.npm/npm /.npm /.npmrc
+
 
 ADD with-uid.sh /usr/local/bin
 
@@ -39,3 +49,4 @@ ENV JUPYTER_PATH /w/jupyterlab
 ENV JUPYTER_RUNTIME_DIR /w/jupyterlab
 ENV XDG_DATA_HOME /w/jupyterlab
 ENV YARN_CACHE_FOLDER=/w/.yarncache
+ENV NPM_CONFIG_PREFIX=/w/.npm-global

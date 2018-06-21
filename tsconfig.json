@@ -1,15 +1,23 @@
 {
   "compilerOptions": {
+    "sourceMap": true,
     "declaration": true,
     "noImplicitAny": true,
     "noEmitOnError": true,
-    "noUnusedLocals": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "noUnusedLocals": false,
     "module": "commonjs",
     "moduleResolution": "node",
-    "target": "ES5",
+    "target": "es5",
     "outDir": "./lib",
-    "lib": ["ES5", "ES2015.Promise", "DOM"],
-    "types": []
+    "lib": [
+      "es2017",
+      "dom"
+    ],
+    "typeRoots": [
+      "node_modules/@types"
+    ]
   },
   "include": ["src/*"]
 }
