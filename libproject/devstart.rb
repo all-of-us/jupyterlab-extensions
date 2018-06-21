@@ -66,7 +66,7 @@ def install(cmd_name, args)
   swagger_regen("swagger-regen")
   build("build", args)
   common = Common.new
-  common.run_inline %W{jupyter labextension link .}
+  common.run_inline %W{jupyter labextension link . --dev}
   common.run_inline %W{cp test/all_of_us_config.json jupyterlab/.all_of_us_config.json}
 end
 
