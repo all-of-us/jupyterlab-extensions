@@ -82,8 +82,8 @@ export class ConceptsWidget extends Widget {
       console.log('Generating code...');
       const model = notebooks.currentWidget.model;
       const cell = model.contentFactory.createCodeCell({});
-      cell.modelDB.createString('# Code for ' + this.selectedConceptName + ' goes here.');
-      model.cells.insert(model.cells.length, cell);
+      cell.value.text = '# Code for ' + this.selectedConceptName + ' goes here';
+      model.cells.push(cell);
     });
     this.generateCodeInput.disabled = true;
     this.conceptsDiv.appendChild(this.generateCodeInput);
