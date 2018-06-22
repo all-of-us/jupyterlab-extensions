@@ -5,10 +5,18 @@ table.conceptsTable th {
   font-weight: bold;
 }
 
+table.conceptsTable th.stringField {
+  text-align: left;
+}
+
 table.conceptsTable td {
   color: black;
   padding: 2px;
   font-size: 11px;
+}
+
+table.conceptsTable td.stringField {
+  text-align: left;
 }
 
 table.conceptsTable tr:nth-of-type(odd) {

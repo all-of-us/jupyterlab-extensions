@@ -11,15 +11,19 @@ import {ConceptsService} from '../services/concepts.service';
 
 import {Observable} from 'rxjs/Rx';
 
+export enum LoadingStatus {
+  UNSET,
+  LOADING,
+  LOADED
+}
+
 export class ConceptsWidgetModel extends VDomModel {
 
   public initialized: boolean;
-  public conceptsLoaded: boolean;
-  public conceptsLoading: boolean;
+  public loadingStatus = LoadingStatus.UNSET;
   public query = '';
   public concepts: Array<Concept>;
   public selectedConcept: Concept;
-
 }
 
 export class ConceptsWidgetRenderer extends VDomRenderer<ConceptsWidgetModel> {
@@ -48,13 +52,12 @@ export class ConceptsWidgetRenderer extends VDomRenderer<ConceptsWidgetModel> {
     };
 
     const searchConcepts = () => {
-      this.model.conceptsLoading = true;
+      this.model.loadingStatus = LoadingStatus.LOADING;
       this.update();
       this.conceptsService.searchConcepts({query: this.model.query})
           .then((concepts) => {
-            this.model.conceptsLoading = false;
             this.model.concepts = concepts;
-            this.model.conceptsLoaded = true;
+            this.model.loadingStatus = LoadingStatus.LOADED;
             this.update();
           });
     };
@@ -64,8 +67,7 @@ export class ConceptsWidgetRenderer extends VDomRenderer<ConceptsWidgetModel> {
                  disabled={!this.model.initialized}/>
           <br/>
           <input value='Search' type='button' onClick={searchConcepts}
-                 disabled={!this.model.initialized || this.model.query == null
-                     || this.model.query === ''}/>
+                 disabled={!this.model.initialized || !this.model.query}/>
           <br/>
           {this.loadingImage()}
           {this.conceptsTable()}
@@ -74,7 +76,7 @@ export class ConceptsWidgetRenderer extends VDomRenderer<ConceptsWidgetModel> {
   }
 
   protected loadingImage(): React.ReactElement<any> {
-    if (!this.model.conceptsLoading) {
+    if (this.model.loadingStatus !== LoadingStatus.LOADING) {
       return null;
     }
     const img_src = 'https://vignette.wikia.nocookie.net/epicrapbattlesofhistory/'
@@ -85,7 +87,7 @@ export class ConceptsWidgetRenderer extends VDomRenderer<ConceptsWidgetModel> {
   }
 
   protected conceptsTable(): React.ReactElement<any> {
-    if (!this.model.conceptsLoaded) {
+    if (this.model.loadingStatus !== LoadingStatus.LOADED) {
       return null;
     }
     const selectRow = (concept) => {
@@ -108,37 +110,33 @@ export class ConceptsWidgetRenderer extends VDomRenderer<ConceptsWidgetModel> {
           <thead>
             <tr>
               <th>ID</th>
-              <th style={{textAlign: 'left'}}>Name</th>
-              <th style={{textAlign: 'left'}}>Code</th>
-              <th style={{textAlign: 'left'}}>Domain</th>
-              <th style={{textAlign: 'left'}}>Vocabulary</th>
+              <th className='stringField'>Name</th>
+              <th className='stringField'>Code</th>
+              <th className='stringField'>Domain</th>
+              <th className='stringField'>Vocabulary</th>
               <th>Count</th>
             </tr>
           </thead>
 
           <tbody>
-          {this.model.concepts.map(function(concept) {
+          {this.model.concepts.map((concept) => {
             return (
-                <tr key={concept.conceptId} onClick={() =>
-                    selectRow(concept)}
+                <tr key={concept.conceptId} onClick={() => selectRow(concept)}
                     className={selectedConceptId === concept.conceptId ? 'selected' : ''}>
                   <td>{concept.conceptId}</td>
-                  <td style={{textAlign: 'left'}}>{concept.conceptName}</td>
-                  <td style={{textAlign: 'left'}}>{concept.conceptCode}</td>
-                  <td style={{textAlign: 'left'}}>{concept.domainId}</td>
-                  <td style={{textAlign: 'left'}}>{concept.vocabularyId}</td>
-                  <td style={{textAlign: 'left'}}>{concept.countValue}</td>
+                  <td className='stringField'>{concept.conceptName}</td>
+                  <td className='stringField'>{concept.conceptCode}</td>
+                  <td className='stringField'>{concept.domainId}</td>
+                  <td className='stringField'>{concept.vocabularyId}</td>
+                  <td>{concept.countValue}</td>
                 </tr>
             );
            })}
           </tbody>
         </table>
         <input value='Generate code' type='button' onClick={generateCode}
-               disabled={selectedConceptId == null}/>
+               disabled={!selectedConceptId}/>
       </div>
     );
   }
-
 }
-
-

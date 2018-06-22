@@ -13,7 +13,6 @@ import {
 
 import {AllOfUsConfig} from './config';
 import {ConceptsService} from './services/concepts.service';
-// import {ConceptsWidget} from './widgets/concepts-widget';
 
 import '../style/index.css';
 import {AuthService} from './services/auth.service';
