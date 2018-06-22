@@ -79,6 +79,8 @@ export class ConceptsWidgetRenderer extends VDomRenderer<ConceptsWidgetModel> {
     if (this.model.loadingStatus !== LoadingStatus.LOADING) {
       return null;
     }
+    // Three divs inside the inner div makes three balls in the spinner.
+    // See: https://github.com/ConnorAtherton/loaders.css
     return (
         <div className='loaderWrapper'>
           <div className='loader-inner ball-pulse'>
