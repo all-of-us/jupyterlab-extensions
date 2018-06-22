@@ -13,10 +13,12 @@ import {
 
 import {AllOfUsConfig} from './config';
 import {ConceptsService} from './services/concepts.service';
-import {ConceptsWidget} from './widgets/concepts-widget';
 
+import '../../loaders.css/loaders.min.css';
 import '../style/index.css';
+
 import {AuthService} from './services/auth.service';
+import {ConceptsWidgetModel, ConceptsWidgetRenderer} from './widgets/concept-widget';
 
 // Activate the jupyterhub extension.
 function activateExtension(app: JupyterLab,
@@ -28,8 +30,9 @@ function activateExtension(app: JupyterLab,
     const authService = new AuthService();
     authService.loadGapi();
     const conceptsService = new ConceptsService(authService, configObservable);
-    const conceptsWidget = new ConceptsWidget(configObservable, conceptsService, notebooks);
-
+    const conceptsWidget = new ConceptsWidgetRenderer(configObservable, conceptsService,
+        notebooks);
+    conceptsWidget.model = new ConceptsWidgetModel();
     // Add an application command
     const conceptsCommand = 'allOfUs:concepts';
     app.commands.addCommand(conceptsCommand, {

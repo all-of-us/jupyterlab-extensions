@@ -1,5 +1,44 @@
-#allofus-concepts td {
+table.conceptsTable th {
   color: black;
   padding: 2px;
   font-size: 11px;
+  font-weight: bold;
+}
+
+table.conceptsTable th.stringField {
+  text-align: left;
+}
+
+table.conceptsTable td {
+  color: black;
+  padding: 2px;
+  font-size: 11px;
+}
+
+table.conceptsTable td.stringField {
+  text-align: left;
+}
+
+table.conceptsTable tr:nth-of-type(odd) {
+  background-color: #cccccc;
+}
+
+table.conceptsTable tr.selected {
+  background-color: #bbbbff;
+}
+
+/* Specifies the size and color of each ball in the loading widget. */
+.ball-pulse > div {
+  height: 15px;
+  width: 15px;
+  background-color: #999999;
+}
+
+div.loaderWrapper {
+  width: 10em;
+  margin-top: 2em;
+}
+
+div.loader-inner {
+  text-align: center;
 }
