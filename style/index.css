@@ -26,3 +26,19 @@ table.conceptsTable tr:nth-of-type(odd) {
 table.conceptsTable tr.selected {
   background-color: #bbbbff;
 }
+
+/* Specifies the size and color of each ball in the loading widget. */
+.ball-pulse > div {
+  height: 15px;
+  width: 15px;
+  background-color: #999999;
+}
+
+div.loaderWrapper {
+  width: 10em;
+  margin-top: 2em;
+}
+
+div.loader-inner {
+  text-align: center;
+}

@@ -79,10 +79,14 @@ export class ConceptsWidgetRenderer extends VDomRenderer<ConceptsWidgetModel> {
     if (this.model.loadingStatus !== LoadingStatus.LOADING) {
       return null;
     }
-    const img_src = 'https://vignette.wikia.nocookie.net/epicrapbattlesofhistory/'
-      + 'images/c/c2/Peanut-butter-jelly-time.gif/revision/latest?cb=20141129150614';
     return (
-        <img src={img_src}/>
+        <div className='loaderWrapper'>
+          <div className='loader-inner ball-pulse'>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
     );
   }
 

@@ -14,7 +14,9 @@ import {
 import {AllOfUsConfig} from './config';
 import {ConceptsService} from './services/concepts.service';
 
+import '../../loaders.css/loaders.min.css';
 import '../style/index.css';
+
 import {AuthService} from './services/auth.service';
 import {ConceptsWidgetModel, ConceptsWidgetRenderer} from './widgets/concept-widget';
 
